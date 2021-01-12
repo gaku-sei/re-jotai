@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useCounter Counter is 42 1`] = `
+<div>
+  <div>
+    <div
+      title="counter"
+    >
+      42
+    </div>
+    <div
+      title="doubled-counter"
+    >
+      84
+    </div>
+    <div>
+      loading
+    </div>
+    <button
+      title="increment"
+    >
+      increment
+    </button>
+  </div>
+</div>
+`;
+
+exports[`useCounter Counter is 43 1`] = `
+<div>
+  <div>
+    <div
+      title="counter"
+    >
+      43
+    </div>
+    <div
+      title="doubled-counter"
+    >
+      86
+    </div>
+    <div>
+      loading
+    </div>
+    <button
+      title="increment"
+    >
+      increment
+    </button>
+  </div>
+</div>
+`;

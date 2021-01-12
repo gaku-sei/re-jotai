@@ -1,0 +1,33 @@
+{
+  "name": "re-jotai",
+  "reason": {
+    "react-jsx": 3
+  },
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    },
+    {
+      "dir": "test",
+      "subdirs": true,
+      "type": "dev"
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "commonjs",
+      "in-source": true
+    }
+  ],
+  "suffix": ".js",
+  "namespace": "jotai",
+  "bs-dependencies": ["reason-react"],
+  "bs-dev-dependencies": ["@glennsl/bs-jest", "bs-react-testing-library"],
+  "refmt": 3,
+  "warnings": {
+    "number": "-48-32",
+    "error": "+A+8+11+12+16+26+27+31+33+34+35+39+44+45+101+102+104+105"
+  },
+  "bsc-flags": ["-bs-super-errors", "-open Belt"]
+}

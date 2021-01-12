@@ -1,0 +1,15 @@
+.merlin
+.bsb.lock
+
+.idea/
+.vscode/
+.DS_Store/
+
+/lib/
+/node_modules/
+
+/src/**/*.js
+/test/**/*.js
+
+npm-debug.log
+yarn-error.log
