@@ -1,6 +1,8 @@
 # ReJotai
 
-Binding for the [Jotai](https://github.com/pmndrs/jotai) library
+Bindings for the [Jotai](https://github.com/pmndrs/jotai) library
+
+The bindings aim to be as close as possible to the original API, and introduces only a little runtime code only when absolutely necessary (see the derived atom sections below).
 
 ## API
 
@@ -22,6 +24,15 @@ module App = {
 
 ### Atoms
 
+#### `Jotai.get`
+
+Unlike the original API, and in order to keep the flexibility, derived atoms requires some light runtime code and small changes to the semantic: `get` is now `getter` (see `derivedAtom` and `derivedAsyncAtom` for more).
+
+```rescript
+// Inside a derived atom
+let value = getter->Jotai.get(atom)
+```
+
 #### `Jotai.atom`
 
 Creates a simple readable/writable atom:
@@ -33,15 +44,15 @@ let counterAtom = Jotai.atom(10)
 #### `Jotai.derivedAtom`
 
 ```rescript
-let doubleCounterDerivedAtom = Jotai.derivedAtom(get => get(counterAtom) * 2)
+let doubleCounterDerivedAtom = Jotai.derivedAtom(getter => getter->Jotai.get(counterAtom) * 2)
 ```
 
 #### `Jotai.derivedAsyncAtom`
 
 ```rescript
-let asyncDerivedAtom = Jotai.derivedAsyncAtom(get =>
+let asyncDerivedAtom = Jotai.derivedAsyncAtom(getter =>
   Js.Promise.make((~resolve, ~reject as _) => {
-    let tripleCounter = get(counterAtom) * 3
+    let tripleCounter = getter->Jotai.get(counterAtom) * 3
 
     Js.Global.setTimeout(() => resolve(. tripleCounter), 300)->ignore
   })
@@ -83,5 +94,4 @@ You can check the [tests](test/Main_Test.res) for more.
 
 ## Limitations
 
-- The `get` function in derived atoms currently supports only one type at a time (see this [issue](https://github.com/gaku-sei/re-jotai/issues/1) for more)
 - Some functions are still missing, namely: [`derivedWritableAtom`](https://github.com/gaku-sei/re-jotai/issues/2) and [`derivedAsyncWritableAtom`](https://github.com/gaku-sei/re-jotai/issues/3)

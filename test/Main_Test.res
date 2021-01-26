@@ -8,11 +8,18 @@ let counterAtom = Jotai.atom(initialCounter)
 
 let messageAtom = Jotai.atom("Welcome Jotai!")
 
-let doubleCounterDerivedAtom = Jotai.derivedAtom(get => get(counterAtom) * 2)
+let mixedDerivedAtom = Jotai.derivedAtom(getter => {
+  let counter = getter->Jotai.get(counterAtom)
+  let message = getter->Jotai.get(messageAtom)
 
-let asyncDerivedAtom = Jotai.derivedAsyncAtom(get =>
+  {"counter": counter, "message": message}
+})
+
+let doubleCounterDerivedAtom = Jotai.derivedAtom(getter => getter->Jotai.get(counterAtom) * 2)
+
+let asyncDerivedAtom = Jotai.derivedAsyncAtom(getter =>
   Js.Promise.make((~resolve, ~reject as _) => {
-    let tripleCounter = get(counterAtom) * 3
+    let tripleCounter = getter->Jotai.get(counterAtom) * 3
 
     Js.Global.setTimeout(() => resolve(. tripleCounter), 300)->ignore
   })
@@ -35,9 +42,12 @@ module Counter = {
     let _counter = Jotai.useDerivedAtom(counterAtom)
     // let _doubleCounter = Jotai.useAtom(doubleCounterDerivedAtom)
     let doubleCounter = Jotai.useDerivedAtom(doubleCounterDerivedAtom)
+    let mixed = Jotai.useDerivedAtom(mixedDerivedAtom)
 
     <div>
       <div title="counter"> {counter->React.int} </div>
+      <div title="counter-2"> {mixed["counter"]->React.int} </div>
+      <div title="message"> {mixed["message"]->React.string} </div>
       <div title="doubled-counter"> {doubleCounter->React.int} </div>
       <React.Suspense fallback={<div> {"loading"->React.string} </div>}>
         <AsyncCounter />
