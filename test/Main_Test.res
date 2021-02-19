@@ -17,6 +17,15 @@ let mixedDerivedAtom = Atom.makeDerived(getter => {
 
 let doubleCounterDerivedAtom = Atom.makeDerived(getter => getter->Atom.get(counterAtom) * 2)
 
+let writableDerivedCounter = Atom.makeWritableDerived(
+  getter => getter->Atom.get(counterAtom) * 3,
+  (getter, setter, arg) => {
+    let counter = getter->Atom.get(counterAtom) * 3
+
+    setter->Atom.set(counterAtom, counter + arg)
+  },
+)
+
 let asyncDerivedAtom = Atom.makeAsynDerived(getter =>
   Js.Promise.make((~resolve, ~reject as _) => {
     let tripleCounter = getter->Atom.get(counterAtom) * 3
@@ -43,17 +52,22 @@ module Counter = {
     // let _doubleCounter = Hooks.use(doubleCounterDerivedAtom)
     let doubleCounter = Hooks.useReadable(doubleCounterDerivedAtom)
     let mixed = Hooks.useReadable(mixedDerivedAtom)
+    let (writableDerivedCounter, addToWritableDerivedCounter) = Hooks.use(writableDerivedCounter)
 
     <div>
       <div title="counter"> {counter->React.int} </div>
       <div title="counter-2"> {mixed["counter"]->React.int} </div>
       <div title="message"> {mixed["message"]->React.string} </div>
       <div title="doubled-counter"> {doubleCounter->React.int} </div>
+      <div title="tripled-counter"> {writableDerivedCounter->React.int} </div>
       <React.Suspense fallback={<div> {"loading"->React.string} </div>}>
         <AsyncCounter />
       </React.Suspense>
-      <button title="increment" onClick={_ => setCounter(counter => counter + 1)}>
-        {"increment"->React.string}
+      <button title="increment-1" onClick={_ => setCounter(counter => counter + 1)}>
+        {"increment-1"->React.string}
+      </button>
+      <button title="increment-2" onClick={_ => addToWritableDerivedCounter(123)}>
+        {"increment-2"->React.string}
       </button>
     </div>
   }
@@ -74,7 +88,9 @@ describe("useCounter", () => {
   test(`Counter is ${(initialCounter + 1)->Int.toString}`, () => {
     let app = <App />->render
 
-    app->getByText(~matcher=#Str("increment"))->FireEvent.click->ignore
+    app->getByText(~matcher=#Str("increment-1"))->FireEvent.click->ignore
+
+    app->getByText(~matcher=#Str("increment-2"))->FireEvent.click->ignore
 
     app->container->expect->toMatchSnapshot
   })
