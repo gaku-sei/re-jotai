@@ -24,35 +24,35 @@ module App = {
 
 ### Atoms
 
-#### `Jotai.get`
+#### `Jotai.Atom.get`
 
 Unlike the original API, and in order to keep the flexibility, derived atoms requires some light runtime code and small changes to the semantic: `get` is now `getter` (see `derivedAtom` and `derivedAsyncAtom` for more).
 
 ```rescript
 // Inside a derived atom
-let value = getter->Jotai.get(atom)
+let value = getter->Jotai.Atom.get(atom)
 ```
 
-#### `Jotai.atom`
+#### `Jotai.Atom.make`
 
 Creates a simple readable/writable atom:
 
 ```rescript
-let counterAtom = Jotai.atom(10)
+let counterAtom = Jotai.Atom.make(10)
 ```
 
-#### `Jotai.derivedAtom`
+#### `Jotai.Atom.makeDerived`
 
 ```rescript
-let doubleCounterDerivedAtom = Jotai.derivedAtom(getter => getter->Jotai.get(counterAtom) * 2)
+let doubleCounterDerivedAtom = Jotai.Atom.makeDerived(getter => getter->Jotai.Atom.get(counterAtom) * 2)
 ```
 
-#### `Jotai.derivedAsyncAtom`
+#### `Jotai.Atom.makeAsyncDerived`
 
 ```rescript
-let asyncDerivedAtom = Jotai.derivedAsyncAtom(getter =>
+let asyncDerivedAtom = Jotai.Atom.makeAsyncDerived(getter =>
   Js.Promise.make((~resolve, ~reject as _) => {
-    let tripleCounter = getter->Jotai.get(counterAtom) * 3
+    let tripleCounter = getter->Jotai.Atom.get(counterAtom) * 3
 
     Js.Global.setTimeout(() => resolve(. tripleCounter), 300)->ignore
   })
@@ -61,23 +61,23 @@ let asyncDerivedAtom = Jotai.derivedAsyncAtom(getter =>
 
 ### Hooks
 
-#### `Jotai.useAtom`
+#### `Jotai.Hooks.useAtom`
 
 _To prevent any mistake you can't use this hook with readonly derived atom_
 
 ```rescript
-let (counter, setCounter) = Jotai.useAtom(counterAtom)
+let (counter, setCounter) = Jotai.Hooks.useAtom(counterAtom)
 ```
 
-#### `Jotai.useDerivedAtom`
+#### `Jotai.Hook.useDerivedAtom`
 
 Returns only the value, no setter
 
 ```rescript
-let doubleCounter = Jotai.useDerivedAtom(doubleCounterDerivedAtom)
+let doubleCounter = Jotai.Hook.useDerivedAtom(doubleCounterDerivedAtom)
 ```
 
-#### `Jotai.useDerivedAtom` with Async atoms
+#### `Jotai.Hook.useDerivedAtom` with Async atoms
 
 Returns only the value, no setter.
 
@@ -85,7 +85,7 @@ In the example below `tripleCounter` is _not_ a Promise, but the component must 
 in a React `Suspense` component.
 
 ```rescript
-let tripleCounter = Jotai.useDerivedAtom(asyncDerivedAtom)
+let tripleCounter = Jotai.Hook.useDerivedAtom(asyncDerivedAtom)
 ```
 
 ### More
