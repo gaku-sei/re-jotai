@@ -28,8 +28,8 @@ let asyncDerivedAtom = Atom.makeAsynDerived(getter =>
 module AsyncCounter = {
   @react.component
   let make = () => {
-    // let _tripleCounter = Hooks.useAtom(asyncDerivedAtom)
-    let tripleCounter = Hooks.useDerivedAtom(asyncDerivedAtom)
+    // let _tripleCounter = Hooks.use(asyncDerivedAtom)
+    let tripleCounter = Hooks.useReadable(asyncDerivedAtom)
 
     <> <div title="tripled-counter"> {tripleCounter->React.int} </div> </>
   }
@@ -38,11 +38,11 @@ module AsyncCounter = {
 module Counter = {
   @react.component
   let make = () => {
-    let (counter, setCounter) = Hooks.useAtom(counterAtom)
-    let _counter = Hooks.useDerivedAtom(counterAtom)
-    // let _doubleCounter = Hooks.useAtom(doubleCounterDerivedAtom)
-    let doubleCounter = Hooks.useDerivedAtom(doubleCounterDerivedAtom)
-    let mixed = Hooks.useDerivedAtom(mixedDerivedAtom)
+    let (counter, setCounter) = Hooks.use(counterAtom)
+    let _counter = Hooks.useReadable(counterAtom)
+    // let _doubleCounter = Hooks.use(doubleCounterDerivedAtom)
+    let doubleCounter = Hooks.useReadable(doubleCounterDerivedAtom)
+    let mixed = Hooks.useReadable(mixedDerivedAtom)
 
     <div>
       <div title="counter"> {counter->React.int} </div>

@@ -61,31 +61,31 @@ let asyncDerivedAtom = Jotai.Atom.makeAsyncDerived(getter =>
 
 ### Hooks
 
-#### `Jotai.Hooks.useAtom`
+#### `Jotai.Hooks.use`
 
 _To prevent any mistake you can't use this hook with readonly derived atom_
 
 ```rescript
-let (counter, setCounter) = Jotai.Hooks.useAtom(counterAtom)
+let (counter, setCounter) = Jotai.Hooks.use(counterAtom)
 ```
 
-#### `Jotai.Hook.useDerivedAtom`
+#### `Jotai.Hook.useReadable`
 
-Returns only the value, no setter
+Can be used only on readable atoms. Returns only the value, no setter
 
 ```rescript
-let doubleCounter = Jotai.Hook.useDerivedAtom(doubleCounterDerivedAtom)
+let doubleCounter = Jotai.Hook.useReadable(doubleCounterDerivedAtom)
 ```
 
-#### `Jotai.Hook.useDerivedAtom` with Async atoms
+#### `Jotai.Hook.useReadable` with Async atoms
 
-Returns only the value, no setter.
+Can be used only on readable atoms. Returns only the value, no setter.
 
 In the example below `tripleCounter` is _not_ a Promise, but the component must be wrapped
 in a React `Suspense` component.
 
 ```rescript
-let tripleCounter = Jotai.Hook.useDerivedAtom(asyncDerivedAtom)
+let tripleCounter = Jotai.Hook.useReadable(asyncDerivedAtom)
 ```
 
 ### More

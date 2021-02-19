@@ -7,7 +7,7 @@
     "clean": "bsb -clean-world && rm -fr lib",
     "build": "bsb -make-world",
     "test": "yarn build && jest",
-    "test:update": "yarn build && jest ----updateSnapshot"
+    "test:update": "yarn build && jest --updateSnapshot"
   },
   "jest": {
     "testMatch": [
