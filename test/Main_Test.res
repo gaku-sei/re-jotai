@@ -4,22 +4,22 @@ open ReactTestingLibrary
 
 let initialCounter = 42
 
-let counterAtom = Jotai.atom(initialCounter)
+let counterAtom = Atom.make(initialCounter)
 
-let messageAtom = Jotai.atom("Welcome Jotai!")
+let messageAtom = Atom.make("Welcome Jotai!")
 
-let mixedDerivedAtom = Jotai.derivedAtom(getter => {
-  let counter = getter->Jotai.get(counterAtom)
-  let message = getter->Jotai.get(messageAtom)
+let mixedDerivedAtom = Atom.makeDerived(getter => {
+  let counter = getter->Atom.get(counterAtom)
+  let message = getter->Atom.get(messageAtom)
 
   {"counter": counter, "message": message}
 })
 
-let doubleCounterDerivedAtom = Jotai.derivedAtom(getter => getter->Jotai.get(counterAtom) * 2)
+let doubleCounterDerivedAtom = Atom.makeDerived(getter => getter->Atom.get(counterAtom) * 2)
 
-let asyncDerivedAtom = Jotai.derivedAsyncAtom(getter =>
+let asyncDerivedAtom = Atom.makeAsynDerived(getter =>
   Js.Promise.make((~resolve, ~reject as _) => {
-    let tripleCounter = getter->Jotai.get(counterAtom) * 3
+    let tripleCounter = getter->Atom.get(counterAtom) * 3
 
     Js.Global.setTimeout(() => resolve(. tripleCounter), 300)->ignore
   })
@@ -28,8 +28,8 @@ let asyncDerivedAtom = Jotai.derivedAsyncAtom(getter =>
 module AsyncCounter = {
   @react.component
   let make = () => {
-    // let _tripleCounter = Jotai.useAtom(asyncDerivedAtom)
-    let tripleCounter = Jotai.useDerivedAtom(asyncDerivedAtom)
+    // let _tripleCounter = Hooks.useAtom(asyncDerivedAtom)
+    let tripleCounter = Hooks.useDerivedAtom(asyncDerivedAtom)
 
     <> <div title="tripled-counter"> {tripleCounter->React.int} </div> </>
   }
@@ -38,11 +38,11 @@ module AsyncCounter = {
 module Counter = {
   @react.component
   let make = () => {
-    let (counter, setCounter) = Jotai.useAtom(counterAtom)
-    let _counter = Jotai.useDerivedAtom(counterAtom)
-    // let _doubleCounter = Jotai.useAtom(doubleCounterDerivedAtom)
-    let doubleCounter = Jotai.useDerivedAtom(doubleCounterDerivedAtom)
-    let mixed = Jotai.useDerivedAtom(mixedDerivedAtom)
+    let (counter, setCounter) = Hooks.useAtom(counterAtom)
+    let _counter = Hooks.useDerivedAtom(counterAtom)
+    // let _doubleCounter = Hooks.useAtom(doubleCounterDerivedAtom)
+    let doubleCounter = Hooks.useDerivedAtom(doubleCounterDerivedAtom)
+    let mixed = Hooks.useDerivedAtom(mixedDerivedAtom)
 
     <div>
       <div title="counter"> {counter->React.int} </div>
@@ -61,7 +61,7 @@ module Counter = {
 
 module App = {
   @react.component
-  let make = () => <Jotai.Provider> <Counter /> </Jotai.Provider>
+  let make = () => <Provider> <Counter /> </Provider>
 }
 
 describe("useCounter", () => {
