@@ -33,6 +33,15 @@ Unlike the original API, and in order to keep the flexibility, derived atoms req
 let value = getter->Jotai.Atom.get(atom)
 ```
 
+#### `Jotai.Atom.set`
+
+Unlike the original API, and in order to keep the flexibility, writable derived atoms requires some light runtime code and small changes to the semantic: `set` is now `setter` (see `makeWritableDerived` for more).
+
+```rescript
+// Inside a writable derived atom
+setter->Jotai.Atom.set(atom, newValue)
+```
+
 #### `Jotai.Atom.make`
 
 Creates a simple readable/writable atom:
@@ -43,11 +52,15 @@ let counterAtom = Jotai.Atom.make(10)
 
 #### `Jotai.Atom.makeDerived`
 
+Creates a derived (readonly) atom.
+
 ```rescript
 let doubleCounterDerivedAtom = Jotai.Atom.makeDerived(getter => getter->Jotai.Atom.get(counterAtom) * 2)
 ```
 
 #### `Jotai.Atom.makeAsyncDerived`
+
+Creates an async derived (readonly) atom.
 
 ```rescript
 let asyncDerivedAtom = Jotai.Atom.makeAsyncDerived(getter =>
@@ -56,6 +69,22 @@ let asyncDerivedAtom = Jotai.Atom.makeAsyncDerived(getter =>
 
     Js.Global.setTimeout(() => resolve(. tripleCounter), 300)->ignore
   })
+)
+```
+
+### `Jotai.Atom.makeWritableDerived`
+
+In the following example we re-use an existing readable and writable atom
+and derive both a new getter and a new setter.
+
+```rescript
+let writableDerivedCounter = Atom.makeWritableDerived(
+  getter => getter->Atom.get(counterAtom) * 2,
+  (getter, setter, arg) => {
+    let newCounterValue = getter->Atom.get(counterAtom) * 2 + arg
+
+    setter->Atom.set(counterAtom, newCounterValue)
+  },
 )
 ```
 
@@ -71,7 +100,7 @@ let (counter, setCounter) = Jotai.Hooks.use(counterAtom)
 
 #### `Jotai.Hook.useReadable`
 
-Can be used only on readable atoms. Returns only the value, no setter
+Can be used only with readable atoms. Returns only the value, no setter
 
 ```rescript
 let doubleCounter = Jotai.Hook.useReadable(doubleCounterDerivedAtom)
@@ -79,7 +108,7 @@ let doubleCounter = Jotai.Hook.useReadable(doubleCounterDerivedAtom)
 
 #### `Jotai.Hook.useReadable` with Async atoms
 
-Can be used only on readable atoms. Returns only the value, no setter.
+Can be used only with readable atoms. Returns only the value, no setter.
 
 In the example below `tripleCounter` is _not_ a Promise, but the component must be wrapped
 in a React `Suspense` component.
@@ -88,10 +117,21 @@ in a React `Suspense` component.
 let tripleCounter = Jotai.Hook.useReadable(asyncDerivedAtom)
 ```
 
+#### `Jotai.Hook.useWritable`
+
+Can be used only with writable atoms. Returns only the setter, no value
+
+```rescript
+let setCounter = Jotai.Hook.useWritable(counterAtom)
+```
+
 ### More
 
 You can check the [tests](test/Main_Test.res) for more.
 
 ## Limitations
 
-- Some functions are still missing, namely: [`derivedWritableAtom`](https://github.com/gaku-sei/re-jotai/issues/2) and [`derivedAsyncWritableAtom`](https://github.com/gaku-sei/re-jotai/issues/3)
+Some functions are still missing, namely:
+
+- [`makeWritableOnly`](https://github.com/gaku-sei/re-jotai/issues/2)
+- [`makeWritableAsyncDerived`](https://github.com/gaku-sei/re-jotai/issues/3)

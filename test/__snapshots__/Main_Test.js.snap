@@ -23,13 +23,23 @@ exports[`useCounter Counter is 42 1`] = `
     >
       84
     </div>
+    <div
+      title="tripled-counter"
+    >
+      126
+    </div>
     <div>
       loading
     </div>
     <button
-      title="increment"
+      title="increment-1"
     >
-      increment
+      increment-1
+    </button>
+    <button
+      title="increment-2"
+    >
+      increment-2
     </button>
   </div>
 </div>
@@ -41,12 +51,12 @@ exports[`useCounter Counter is 43 1`] = `
     <div
       title="counter"
     >
-      43
+      252
     </div>
     <div
       title="counter-2"
     >
-      43
+      252
     </div>
     <div
       title="message"
@@ -56,15 +66,25 @@ exports[`useCounter Counter is 43 1`] = `
     <div
       title="doubled-counter"
     >
-      86
+      504
+    </div>
+    <div
+      title="tripled-counter"
+    >
+      756
     </div>
     <div>
       loading
     </div>
     <button
-      title="increment"
+      title="increment-1"
     >
-      increment
+      increment-1
+    </button>
+    <button
+      title="increment-2"
+    >
+      increment-2
     </button>
   </div>
 </div>
