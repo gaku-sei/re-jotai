@@ -22,8 +22,11 @@
   ],
   "suffix": ".js",
   "namespace": "jotai",
-  "bs-dependencies": ["reason-react"],
-  "bs-dev-dependencies": ["@glennsl/bs-jest", "bs-react-testing-library"],
+  "bs-dependencies": ["@rescript/react"],
+  "bs-dev-dependencies": [
+    "@glennsl/bs-jest",
+    "@tomvardasca/rescript-react-testing-library"
+  ],
   "refmt": 3,
   "warnings": {
     "number": "-48-32",

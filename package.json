@@ -16,14 +16,14 @@
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.6.0",
+    "@tomvardasca/rescript-react-testing-library": "^0.9.2",
     "bs-platform": "^8.4.2",
-    "bs-react-testing-library": "^0.8.0",
     "react": "^17.0.1"
   },
   "dependencies": {
+    "@rescript/react": "^0.10.1",
     "jotai": "^0.12.4",
     "react-dom": "^17.0.1",
-    "reason-react": "^0.9.1",
     "scheduler": "^0.20.1"
   }
 }
