@@ -38,7 +38,7 @@ type getter
 let value = getter->Jotai.Atom.get(atom)
 ```
 ")
-let get = (type value, get: getter, atom: t<value, 'value => 'value, [> Permissions.r]>): value =>
+let get = (type value, get: getter, atom: t<value, _, [> Permissions.r]>): value =>
   Obj.magic(get, atom)
 
 @ocaml.doc("An inhabited type used for the derived, write only, atoms")
