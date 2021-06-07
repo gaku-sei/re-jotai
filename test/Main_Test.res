@@ -63,7 +63,7 @@ module Counter = {
       <div title="counter-2"> {mixed["counter"]->React.int} </div>
       <div title="message"> {mixed["message"]->React.string} </div>
       <div title="doubled-counter"> {doubleCounter->React.int} </div>
-      <div title="inc-doubled-counter"> {incDoubleCounter->React.string} </div>
+      <div title="inc-doubled-counter"> {incDoubleCounter->Int.toString->React.string} </div>
       <div title="tripled-counter"> {writableDerivedCounter->React.int} </div>
       <React.Suspense fallback={<div> {"loading"->React.string} </div>}>
         <AsyncCounter />
