@@ -16,6 +16,9 @@ let mixedDerivedAtom = Atom.makeDerived(getter => {
 })
 
 let doubleCounterDerivedAtom = Atom.makeDerived(getter => getter->Atom.get(counterAtom) * 2)
+let incDoubleCounterDervivedAtom = Atom.makeDerived(getter => {
+  getter->Atom.get(doubleCounterDerivedAtom) + 1
+})
 
 let writableDerivedCounter = Atom.makeWritableDerived(
   getter => getter->Atom.get(counterAtom) * 3,
@@ -51,6 +54,7 @@ module Counter = {
     let _counter = Hooks.useReadable(counterAtom)
     // let _doubleCounter = Hooks.use(doubleCounterDerivedAtom)
     let doubleCounter = Hooks.useReadable(doubleCounterDerivedAtom)
+    let incDoubleCounter = Hooks.useReadable(incDoubleCounterDervivedAtom)
     let mixed = Hooks.useReadable(mixedDerivedAtom)
     let (writableDerivedCounter, addToWritableDerivedCounter) = Hooks.use(writableDerivedCounter)
 
@@ -59,6 +63,7 @@ module Counter = {
       <div title="counter-2"> {mixed["counter"]->React.int} </div>
       <div title="message"> {mixed["message"]->React.string} </div>
       <div title="doubled-counter"> {doubleCounter->React.int} </div>
+      <div title="inc-doubled-counter"> {incDoubleCounter->Int.toString->React.string} </div>
       <div title="tripled-counter"> {writableDerivedCounter->React.int} </div>
       <React.Suspense fallback={<div> {"loading"->React.string} </div>}>
         <AsyncCounter />

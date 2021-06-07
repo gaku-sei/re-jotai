@@ -24,6 +24,11 @@ exports[`useCounter Counter is 42 1`] = `
       84
     </div>
     <div
+      title="inc-doubled-counter"
+    >
+      85
+    </div>
+    <div
       title="tripled-counter"
     >
       126
@@ -67,6 +72,11 @@ exports[`useCounter Counter is 43 1`] = `
       title="doubled-counter"
     >
       504
+    </div>
+    <div
+      title="inc-doubled-counter"
+    >
+      505
     </div>
     <div
       title="tripled-counter"
