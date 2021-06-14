@@ -34,6 +34,17 @@ let asyncDerivedAtom = Atom.makeAsynDerived(getter =>
   })
 )
 
+/**
+ * Jotai by default will set the provider less mode where a TestProvider is
+ * created that passes down children so a similar technique is used here to
+ * avoid Provider update warnings for every atom
+ * https://github.com/pmndrs/jotai/blob/39bc8b31d05835f4af83b3dcf0d2971f984aa52c/tests/testUtils.ts#L3
+ */
+module TestProvider = {
+  @react.component
+  let make = (~children: React.element) => children
+}
+
 module AsyncCounter = {
   @react.component
   let make = () => {
@@ -75,7 +86,7 @@ module Counter = {
 
 module App = {
   @react.component
-  let make = () => <Provider> <Counter /> </Provider>
+  let make = () => <TestProvider> <Counter /> </TestProvider>
 }
 
 describe("useCounter", () => {
