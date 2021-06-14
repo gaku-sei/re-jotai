@@ -17,13 +17,15 @@
   "devDependencies": {
     "@glennsl/bs-jest": "^0.6.0",
     "@rescriptbr/react-testing-library": "^1.0.1",
-    "rescript": "^9.1.4",
     "react": "^17.0.1",
-    "jotai": "1.0.0"
+    "rescript": "^9.1.4"
   },
   "dependencies": {
     "@rescript/react": "^0.10.1",
     "react-dom": "^17.0.1",
     "scheduler": "^0.20.1"
+  },
+  "peerDependencies": {
+    "jotai": "^1.0.0"
   }
 }
