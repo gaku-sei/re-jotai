@@ -88,9 +88,13 @@ describe("useCounter", () => {
   test(`Counter is ${(initialCounter + 1)->Int.toString}`, () => {
     let app = <App />->render
 
-    app->getByText(~matcher=#Str("increment-1"))->FireEvent.click->ignore
+    act(() => {
+      app->getByText(~matcher=#Str("increment-1"))->FireEvent.click->ignore
+    })
 
-    app->getByText(~matcher=#Str("increment-2"))->FireEvent.click->ignore
+    act(() => {
+      app->getByText(~matcher=#Str("increment-2"))->FireEvent.click->ignore
+    })
 
     app->container->expect->toMatchSnapshot
   })

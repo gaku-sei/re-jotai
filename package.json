@@ -4,8 +4,8 @@
   "description": "Jotai bindings in ReScript",
   "license": "MIT",
   "scripts": {
-    "clean": "bsb -clean-world && rm -fr lib",
-    "build": "bsb -make-world",
+    "clean": "rescript clean",
+    "build": "rescript build -with-deps",
     "test": "yarn build && jest",
     "test:update": "yarn build && jest --updateSnapshot"
   },
@@ -16,13 +16,13 @@
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.6.0",
-    "@tomvardasca/rescript-react-testing-library": "^0.9.2",
-    "bs-platform": "^8.4.2",
-    "react": "^17.0.1"
+    "@rescriptbr/react-testing-library": "^1.0.1",
+    "rescript": "^9.1.4",
+    "react": "^17.0.1",
+    "jotai": "1.0.0"
   },
   "dependencies": {
     "@rescript/react": "^0.10.1",
-    "jotai": "^0.12.4",
     "react-dom": "^17.0.1",
     "scheduler": "^0.20.1"
   }
