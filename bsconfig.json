@@ -12,19 +12,22 @@
       "dir": "test",
       "subdirs": true,
       "type": "dev"
+    },
+    {
+      "dir": "example",
+      "subdirs": true,
+      "type": "dev"
     }
   ],
   "package-specs": [
     {
-      "module": "commonjs",
+      "module": "es6-global",
       "in-source": true
     }
   ],
   "suffix": ".js",
   "namespace": "jotai",
-  "bs-dependencies": [
-    "@rescript/react"
-  ],
+  "bs-dependencies": ["@rescript/react"],
   "bs-dev-dependencies": [
     "@glennsl/bs-jest",
     "@rescriptbr/react-testing-library"
@@ -33,8 +36,5 @@
     "number": "-48-32",
     "error": "+A+8+11+12+16+26+27+31+33+34+35+39+44+45+101+102+104+105"
   },
-  "bsc-flags": [
-    "-bs-super-errors",
-    "-open Belt"
-  ]
+  "bsc-flags": ["-bs-super-errors", "-open Belt"]
 }

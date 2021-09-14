@@ -5,28 +5,31 @@
   "license": "MIT",
   "scripts": {
     "clean": "rescript clean",
-    "build": "rescript build -with-deps",
-    "test": "yarn build && jest",
-    "test:update": "yarn build && jest --updateSnapshot"
-  },
-  "jest": {
-    "testMatch": [
-      "**/test/**/*_Test.js"
-    ]
+    "build": "rescript build",
+    "test": "yarn build && NODE_ENV=test jest",
+    "test:update": "yarn build && jest --updateSnapshot",
+    "example:start": "vite example"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
     "@glennsl/bs-jest": "^0.7.0",
     "@rescriptbr/react-testing-library": "^1.0.1",
-    "jotai": "1.0.0",
+    "@vitejs/plugin-react-refresh": "^1.3.1",
+    "babel-jest": "^27.2.0",
+    "jotai": "^1.3.4",
     "react": "^17.0.1",
-    "rescript": "^9.1.4"
+    "react-dom": "^17.0.1",
+    "rescript": "^9.1.4",
+    "vite": "^2.5.4"
   },
   "dependencies": {
     "@rescript/react": "^0.10.1",
-    "react-dom": "^17.0.1",
     "scheduler": "^0.20.1"
   },
   "peerDependencies": {
-    "jotai": "^1.0.0"
+    "jotai": "^1.3.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }
