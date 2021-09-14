@@ -15,8 +15,9 @@
     ]
   },
   "devDependencies": {
-    "@glennsl/bs-jest": "^0.6.0",
+    "@glennsl/bs-jest": "^0.7.0",
     "@rescriptbr/react-testing-library": "^1.0.1",
+    "jotai": "1.0.0",
     "react": "^17.0.1",
     "rescript": "^9.1.4"
   },

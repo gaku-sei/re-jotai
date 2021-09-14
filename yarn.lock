@@ -318,10 +318,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@glennsl/bs-jest@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@glennsl/bs-jest/-/bs-jest-0.6.0.tgz#b914f4fb9cf4b4562d16a5d527f0e99f476e9358"
-  integrity sha512-yOHJE/VFaX6tW5UKtM8yNsaneLYWYWlNGuXDjxsT9hfedGN7AO8G/viCxxG684iJbWDidwugoMaY36WQimcVnQ==
+"@glennsl/bs-jest@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@glennsl/bs-jest/-/bs-jest-0.7.0.tgz#6b6168edf15aa4dab51cfe7734b36705beac2f11"
+  integrity sha512-GF8+OQQXLYQXCJidTDPJbTejBMAU4VgnkPoLlrznAvSi9qeDSl8Yl3zuo/Wezu8A4rpijW3Gb8ltQozP3pHw7w==
   dependencies:
     jest "^26.5.2"
 
@@ -2248,7 +2248,7 @@ jest@^26.5.2:
     import-local "^3.0.2"
     jest-cli "^26.6.3"
 
-jotai@^1.0.0:
+jotai@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/jotai/-/jotai-1.0.0.tgz#d5e7f7044d89e543a9c7429a9723e11528b2760e"
   integrity sha512-6hZGy3hqIlBlLSKppTrxDc1Vb7mi3I8eEQOIu7Kj6ceX1PSzjxdsEVC9TjAqaio8gZJEz+2ufNUf4afvbs0RXg==

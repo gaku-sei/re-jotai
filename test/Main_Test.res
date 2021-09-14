@@ -16,6 +16,7 @@ let mixedDerivedAtom = Atom.makeDerived(getter => {
 })
 
 let doubleCounterDerivedAtom = Atom.makeDerived(getter => getter->Atom.get(counterAtom) * 2)
+
 let incDoubleCounterDervivedAtom = Atom.makeDerived(getter => {
   getter->Atom.get(doubleCounterDerivedAtom) + 1
 })
