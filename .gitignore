@@ -10,6 +10,7 @@
 
 /src/**/*.js
 /test/**/*.js
+/example/**/*.js
 
 npm-debug.log
 yarn-error.log
